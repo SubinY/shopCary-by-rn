@@ -1,6 +1,3 @@
-/**
- * Created by xiaomage on 2017/3/26.
- */
 import React, {Component, PropTypes} from 'react';
 import {
     StyleSheet,
@@ -14,7 +11,7 @@ import {
 const Dimensions = require('Dimensions');
 const screenW = Dimensions.get('window').width;
 
-export default class XMGShopCell extends Component {
+export default class MineShopCell extends Component {
     static defaultProps = {
         // 接收上下文传递数据
         dataObj: {}
@@ -65,6 +62,16 @@ export default class XMGShopCell extends Component {
         );
     }
 
+    componentDidMount() {
+        this.refreshList = DeviceEventEmitter.addListener("clearShopBuy", ()=>{
+            this.state.wine.count = 0;
+
+            this.setState({
+                wine: this.state.wind,
+            })
+        })
+    }
+
     /**
      * 删除一个商品
      * @private
@@ -83,7 +90,7 @@ export default class XMGShopCell extends Component {
         this.setState({
             wine: data
         });
-        
+
         // 1.4 发出通知
         DeviceEventEmitter.emit("clickRemoveWine", data);
     }
@@ -159,4 +166,4 @@ const styles = StyleSheet.create({
 
 });
 
-module.exports = XMGShopCell;
+module.exports = MineShopCell;

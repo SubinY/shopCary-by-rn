@@ -1,6 +1,3 @@
-/**
- * Created by xiaomage on 2017/3/26.
- */
 import React, {Component} from 'react';
 import {
     StyleSheet,
@@ -10,7 +7,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 
-export default class XMGBottomView extends Component {
+export default class MineBottomView extends Component {
     // 构造
       constructor(props) {
         super(props);
@@ -43,7 +40,7 @@ export default class XMGBottomView extends Component {
             totalPrice: 0,
             buyWineArr: []
         });
-        
+
         // 发出通知
         DeviceEventEmitter.emit('clearShopBuy', null);
     }
@@ -51,6 +48,9 @@ export default class XMGBottomView extends Component {
     componentDidMount() {
         // 接收添加商品的通知  --> addListener
         this.addWineNotice = DeviceEventEmitter.addListener("clickAddWine", (data)=>{
+             // 定义标矢量
+             let flag = 0;
+
              var tempArr = this.state.buyWineArr;
 
              if(tempArr.length == 0){ // 购买数组为空
@@ -61,9 +61,16 @@ export default class XMGBottomView extends Component {
                      // 1.2 根据id进行判断
                      if(data.id == tempArr[i].id){ // 有
                          tempArr[i] = JSON.parse(JSON.stringify(data)); // 直接替换
-                     }else { // 没有
-                         tempArr.push(JSON.parse(JSON.stringify(data)));
+
+                         // 当检测到商品存在立马跳出循环，提高执行效率
+                         flag = 0;
+                         break;
+                     }else {
+                         flag = 1;
                      }
+                 }
+                 if(flag){//如果循环过后找不到已存在商品，即添加
+                    tempArr.push(JSON.parse(JSON.stringify(data)));
                  }
              }
 
@@ -136,4 +143,4 @@ const styles = StyleSheet.create({
 
 });
 
-module.exports = XMGBottomView;
+module.exports = MineBottomView;

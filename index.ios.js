@@ -17,8 +17,8 @@ import {
 // 本地数据
 var dataArr = require('./LocalData/data.json');
 
-import XMGShopCell from './XMGShopCell';
-import XMGBottomView from './XMGBottomView';
+import MineShopCell from './MineShopCell';
+import MineBottomView from './MineBottomView';
 
 export default class AShopBuy extends Component {
     // 构造
@@ -59,7 +59,7 @@ export default class AShopBuy extends Component {
                     renderRow={this._renderRow}
                 />
                 {/*底部视图*/}
-                <XMGBottomView/>
+                <MineBottomView/>
             </View>
         );
     }
@@ -67,11 +67,11 @@ export default class AShopBuy extends Component {
 
     _renderRow(rowData){
         return(
-            <XMGShopCell dataObj={rowData} />
+            <MineShopCell dataObj={rowData} />
         )
     }
 
-    componentDidMount() {
+    /*componentDidMount() {
         this.refreshList = DeviceEventEmitter.addListener("clearShopBuy", ()=>{
             var tempArr = dataArr;
             for (var i = 0; i < tempArr.length; i++) {
@@ -83,11 +83,11 @@ export default class AShopBuy extends Component {
             // console.log(dataArr);
 
             this.setState({
-                // 延展操作符 ... 会遍历对象中的所有属性  [dataArr, ...tempArr] 
+                // 延展操作符 ... 会遍历对象中的所有属性  [dataArr, ...tempArr]
                 dataSource: this.state.dataSource.cloneWithRows([dataArr, ...tempArr])
             });
         })
-    }
+    }*/
 
     componentWillUnmount() {
 
